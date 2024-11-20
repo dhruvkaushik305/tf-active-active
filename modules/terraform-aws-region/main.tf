@@ -17,7 +17,7 @@ module "networking" {
   vpc_id            = aws_vpc.vpc_main.id
   sg_rules_ingress  = var.sg_rules_ingress
   sg_rules_egress   = var.sg_rules_egress
-  subnets_cidr      = var.subnets_cidr
+  subnets_cidr      = var.subnets_cidr[count.index]
   availability_zone = var.availability_zones[count.index]
 }
 

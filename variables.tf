@@ -1,33 +1,24 @@
-variable "aws_provider" {
-  type        = string
-  default     = "aws.mumbai"
-  description = "Defines the aws provider alias to use"
-  validation {
-    condition     = var.aws_provider == "aws.mumbai" || var.aws_provider == "aws.hyderabad"
-    error_message = "The aws_provider can either be mumbai or hyderabad"
-  }
+variable "regions" {
+  type    = list(string)
+  default = ["aws.mumbai", "aws.hyderabad"]
 }
 
-variable "vpc_cidr_block" {
-  type        = string
-  description = "The CIDR range for the VPC"
-}
-
-variable "subnets_cidr" {
-  type = list(map(object({
-    cidr_block = string
-  })))
-
-  description = "Defines a map for the subnet configurations"
-}
-
-variable "availability_zones" {
+variable "vpc_cidr_blocks" {
   type = list(string)
 }
 
+variable "subnets_cidr" {
+  type = list(list(map(object({
+    cidr_block = string
+  }))))
+}
+
+variable "availability_zones" {
+  type = list(list(string))
+}
+
 variable "ami_ids" {
-  type    = list(string)
-  default = ["", ""]
+  type = list(list(string))
 }
 
 variable "sg_rules_ingress" {
