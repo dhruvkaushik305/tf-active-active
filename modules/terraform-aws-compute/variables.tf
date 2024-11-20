@@ -2,14 +2,10 @@ variable "az" {
   type = string
 }
 
-variable "net_public_id" {
-  type = string
+variable "network_interface_ids" {
+  type = map(string)
 }
 
-variable "net_web_id" {
-  type = string
-}
-
-variable "net_app_id" {
+variable "ami_id" {
   type = string
 }

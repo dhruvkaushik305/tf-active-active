@@ -1,44 +1,16 @@
-resource "aws_instance" "bastion_host" {
+resource "aws_instance" "instances" {
+  for_each = var.network_interface_ids
+
   instance_type     = "t2.micro"
   availability_zone = var.az
-  ami               = "ami-03c68e52484d7488f"
+  ami               = var.ami_id
 
   root_block_device {
     volume_size = 8
   }
 
   network_interface {
-    network_interface_id = var.net_public_id
-    device_index         = 0
-  }
-}
-
-resource "aws_instance" "bastion_host" {
-  instance_type     = "t2.micro"
-  availability_zone = var.az
-  ami               = "ami-03c68e52484d7488f"
-
-  root_block_device {
-    volume_size = 8
-  }
-
-  network_interface {
-    network_interface_id = var.net_web_id
-    device_index         = 0
-  }
-}
-
-resource "aws_instance" "bastion_host" {
-  instance_type     = "t2.micro"
-  availability_zone = var.az
-  ami               = "ami-03c68e52484d7488f"
-
-  root_block_device {
-    volume_size = 8
-  }
-
-  network_interface {
-    network_interface_id = var.net_app_id
+    network_interface_id = each.value
     device_index         = 0
   }
 }
