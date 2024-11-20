@@ -1,7 +1,8 @@
 module "subnets" {
-  source         = "./subnets"
-  vpc_id         = var.vpc_id
-  subnets_config = var.subnets_config
+  source            = "./subnets"
+  vpc_id            = var.vpc_id
+  availability_zone = var.availability_zone
+  subnets_cidr      = var.subnets_cidr
 }
 
 module "security_groups" {

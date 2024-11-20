@@ -1,5 +1,4 @@
 resource "aws_elb" "elb" {
-  name               = "${var.vpc_name}-elb"
   availability_zones = var.azs
 
   dynamic "listener" {
