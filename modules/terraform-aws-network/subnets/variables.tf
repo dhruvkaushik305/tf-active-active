@@ -1,4 +1,4 @@
-variable "subnets" {
+variable "subnets_config" {
   type = map(object({
     cidr_block        = string
     availability_zone = string
