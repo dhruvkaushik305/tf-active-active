@@ -7,4 +7,12 @@ terraform {
       configuration_aliases = [aws.hyderabad]
     }
   }
+
+  backend "s3" {
+    bucket         = "dhruvkaushik305-tf-bucket"
+    region         = "ap-south-1"
+    key            = "state/terraform.tfstate"
+    encrypt        = true
+    dynamodb_table = "tf-lock-state"
+  }
 }
