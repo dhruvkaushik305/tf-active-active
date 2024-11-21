@@ -1,26 +1,38 @@
-variable "regions" {
-  type    = list(string)
-  default = ["aws.mumbai", "aws.hyderabad"]
+variable "region1_cidr" {
+  type = string
 }
 
-variable "vpc_cidr_blocks" {
+variable "region2_cidr" {
+  type = string
+}
+
+variable "region1_subnets_cidr" {
+  type = list(map(object({
+    cidr_block = string
+  })))
+}
+
+variable "region2_subnets_cidr" {
+  type = list(map(object({
+    cidr_block = string
+  })))
+}
+
+variable "region1_availability_zones" {
   type = list(string)
 }
 
-variable "subnets_cidr" {
-  type = list(list(map(object({
-    cidr_block = string
-  }))))
+variable "region2_availability_zones" {
+  type = list(string)
 }
 
-variable "availability_zones" {
-  type = list(list(string))
+variable "region1_ami_ids" {
+  type = list(string)
 }
 
-variable "ami_ids" {
-  type = list(list(string))
+variable "region2_ami_ids" {
+  type = list(string)
 }
-
 variable "sg_rules_ingress" {
   type = map(object({
     ingress = list(object({

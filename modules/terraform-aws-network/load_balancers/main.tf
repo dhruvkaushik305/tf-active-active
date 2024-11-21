@@ -1,5 +1,5 @@
 resource "aws_elb" "elb" {
-  availability_zones = var.azs
+  availability_zones = var.availability_zones
 
   dynamic "listener" {
     for_each = {

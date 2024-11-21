@@ -1,8 +1,9 @@
 resource "aws_instance" "instances" {
   for_each = var.network_interface_ids
 
-  instance_type     = "t2.micro"
-  availability_zone = var.az
+  instance_type = "t2.micro"
+
+  availability_zone = var.availability_zone
   ami               = var.ami_id
 
   root_block_device {

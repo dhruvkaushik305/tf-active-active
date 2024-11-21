@@ -20,5 +20,5 @@ module "network_interfaces" {
 
 module "nat_gateway" {
   source    = "./nat_gateways"
-  subnet_id = modules.subnets.subnet_ids["public"]
+  subnet_id = module.subnets.subnet_ids["public"]
 }
