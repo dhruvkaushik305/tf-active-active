@@ -6,6 +6,7 @@ resource "aws_instance" "instances" {
   availability_zone = var.availability_zone
   ami               = var.ami_id
 
+  key_name = "debian-12"
   root_block_device {
     volume_size = 8
   }

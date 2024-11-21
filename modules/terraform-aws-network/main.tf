@@ -22,3 +22,20 @@ module "nat_gateway" {
   source    = "./nat_gateways"
   subnet_id = module.subnets.subnet_ids["public"]
 }
+
+resource "aws_route_table" "subnet_rt" {
+  vpc_id = var.vpc_id
+
+  route {
+    cidr_block           = var.subnets_cidr["public"].cidr_block
+    network_interface_id = module.network_interfaces.net_ids["web"]
+  }
+  route {
+    cidr_block           = var.subnets_cidr["public"].cidr_block
+    network_interface_id = module.network_interfaces.net_ids["app"]
+  }
+  route {
+    gateway_id     = var.igw_id
+    nat_gateway_id = module.nat_gateway.nat_gateway_id
+  }
+}

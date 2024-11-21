@@ -3,6 +3,10 @@ variable "vpc_id" {
   description = "Defines the vpc id where in the subnets are to be created"
 }
 
+variable "igw_id" {
+  type = string
+}
+
 variable "subnets_cidr" {
   type = map(object({
     cidr_block = string
@@ -15,31 +19,17 @@ variable "availability_zone" {
   type = string
 }
 variable "sg_rules_ingress" {
-  type = map(object({
-    ingress = list(object({
-      from_port = number
-      to_port   = number
-      cidr_ipv4 = string
-    }))
-    egress = list(object({
-      from_port = number
-      to_port   = number
-      cidr_ipv4 = string
-    }))
-  }))
+  type = map(list(object({
+    from_port = number
+    to_port   = number
+    cidr_ipv4 = string
+  })))
 }
 
 variable "sg_rules_egress" {
-  type = map(object({
-    ingress = list(object({
-      from_port = number
-      to_port   = number
-      cidr_ipv4 = string
-    }))
-    egress = list(object({
-      from_port = number
-      to_port   = number
-      cidr_ipv4 = string
-    }))
-  }))
+  type = map(list(object({
+    from_port = number
+    to_port   = number
+    cidr_ipv4 = string
+  })))
 }

@@ -8,7 +8,7 @@ resource "aws_elb" "elb" {
 
     content {
       instance_port     = listener.value.instance_port
-      instance_protocol = listner.value.instance_protocol
+      instance_protocol = listener.value.instance_protocol
       lb_port           = listener.value.lb_port
       lb_protocol       = listener.value.lb_protocol
     }

@@ -15,38 +15,24 @@ variable "availability_zones" {
   type = list(string)
 }
 
-variable "ami_ids" {
-  type = list(string)
+variable "ami_id" {
+  type = string
 }
 
 variable "sg_rules_ingress" {
-  type = map(object({
-    ingress = list(object({
-      from_port = number
-      to_port   = number
-      cidr_ipv4 = string
-    }))
-    egress = list(object({
-      from_port = number
-      to_port   = number
-      cidr_ipv4 = string
-    }))
-  }))
+  type = list(map(list(object({
+    from_port = number
+    to_port   = number
+    cidr_ipv4 = string
+  }))))
 }
 
 variable "sg_rules_egress" {
-  type = map(object({
-    ingress = list(object({
-      from_port = number
-      to_port   = number
-      cidr_ipv4 = string
-    }))
-    egress = list(object({
-      from_port = number
-      to_port   = number
-      cidr_ipv4 = string
-    }))
-  }))
+  type = list(map(list(object({
+    from_port = number
+    to_port   = number
+    cidr_ipv4 = string
+  }))))
 }
 
 variable "elb_listeners" {

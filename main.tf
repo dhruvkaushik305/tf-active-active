@@ -2,23 +2,34 @@ module "region1" {
   source = "./modules/terraform-aws-region"
 
   vpc_cidr_block     = var.region1_cidr
-  sg_rules_ingress   = var.sg_rules_ingress
-  sg_rules_egress    = var.sg_rules_egress
+  sg_rules_ingress   = var.region1_sg_rules_ingress
+  sg_rules_egress    = var.region1_sg_rules_egress
   subnets_cidr       = var.region1_subnets_cidr
   elb_listeners      = var.elb_listeners
   availability_zones = var.region1_availability_zones
-  ami_ids            = var.region1_ami_ids
+  ami_id             = var.region1_ami_id
 }
-
 
 module "region2" {
   source = "./modules/terraform-aws-region"
 
   vpc_cidr_block     = var.region2_cidr
-  sg_rules_ingress   = var.sg_rules_ingress
-  sg_rules_egress    = var.sg_rules_egress
+  sg_rules_ingress   = var.region2_sg_rules_ingress
+  sg_rules_egress    = var.region2_sg_rules_egress
   subnets_cidr       = var.region2_subnets_cidr
   elb_listeners      = var.elb_listeners
   availability_zones = var.region2_availability_zones
-  ami_ids            = var.region2_ami_ids
+  ami_id             = var.region2_ami_id
+}
+
+resource "aws_route53_zone" "main" {
+  name = "dhruvkaushik.xyz"
+}
+
+resource "aws_route53_record" "route53" {
+  zone_id        = aws_route53_zone.main.id
+  name           = "devops.dhruvkaushik.xyz"
+  type           = "CNAME"
+  records        = [module.region1.elb_dns_name, module.region2.elb_dns_name]
+  set_identifier = "region1"
 }

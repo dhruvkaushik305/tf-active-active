@@ -8,13 +8,13 @@ resource "aws_security_group" "sg" {
 resource "aws_vpc_security_group_ingress_rule" "sg_rules_ingress" {
   for_each = {
     for pair in flatten([
-      for sg_key, sg_value in var.sg_rules_ingress : [
-        for ingress_rule in sg_value.ingress : {
+      for sg_key, rule_list in var.sg_rules_ingress : [
+        for ingress_rule in rule_list : {
           sg_key = sg_key
           rule   = ingress_rule
         }
       ]
-      ]) : "${pair.sg_key}-${pair.rule.from_port}-${pair.rule.to_port}" => {
+      ]) : "${pair.sg_key}-${pair.rule.from_port}-${pair.rule.to_port}-${pair.rule.cidr_ipv4}" => {
       sg_key = pair.sg_key
       rule   = pair.rule
     }
@@ -30,14 +30,14 @@ resource "aws_vpc_security_group_ingress_rule" "sg_rules_ingress" {
 resource "aws_vpc_security_group_egress_rule" "sg_rules_egress" {
   for_each = {
     for pair in flatten([
-      for sg_key, sg_value in var.sg_rules_egress : [
-        for egress_rule in sg_value.egress : {
+      for sg_key, rule_list in var.sg_rules_egress : [
+        for ingress_rule in rule_list : {
           sg_key = sg_key
-          rule   = egress_rule
+          rule   = ingress_rule
         }
       ]
-      ]) : "${pair.sg_key}-${pair.rule.from_port}-${pair.rule.to_port}" => {
-      sg_key = pair.sg_key,
+      ]) : "${pair.sg_key}-${pair.rule.from_port}-${pair.rule.to_port}-${pair.rule.cidr_ipv4}" => {
+      sg_key = pair.sg_key
       rule   = pair.rule
     }
   }
