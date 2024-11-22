@@ -9,7 +9,8 @@
 - If you're interested in using S3 for the state file management, go to your console and create a bucket and dynamoDB. Inside the `versions.tf` file, change the `bucket`, `region`, `dynamodb_table` as per your configuration
 - If you want to keep the statefile locally, just remove the `backend` block from the `versions.tf`
 - `terraform init` to initialise the providers
-- `terraform plan` to see the changes to be made
+- Refer to the `terraform.tfvars.example` to see the structure of the values. Change them according to your need and create a new file in the root of the directory called `terraform.tfvars`
+- `terraform plan` to see the changes to be made. This will use the values that you provided in the previous step
 - `terraform apply` to push these changes to the cloud
 - While making changes, use `terraform validate` to see if your code is syntactically correct.
 
