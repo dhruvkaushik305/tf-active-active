@@ -4,3 +4,7 @@ output "subnet_sg_ids" {
     security_group_ids = [value.id]
   } }
 }
+
+output "tg_security_group_id" {
+  value = aws_security_group.sg["web"].id
+}

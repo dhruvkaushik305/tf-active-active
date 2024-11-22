@@ -1,12 +1,14 @@
-variable "availability_zones" {
+variable "security_groups_ids" {
   type = list(string)
 }
 
-variable "elb_listeners" {
-  type = list(object({
-    instance_port     = number
-    instance_protocol = string
-    lb_port           = number
-    lb_protocol       = string
-  }))
+variable "subnet_ids" {
+  type = list(string)
+}
+variable "vpc_id" {
+  type = string
+}
+
+variable "instances_id" {
+  type = list(string)
 }

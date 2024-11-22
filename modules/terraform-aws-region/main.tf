@@ -37,8 +37,11 @@ module "instances" {
   ami_id                = var.ami_id
 }
 
-module "elb" {
-  source             = "../terraform-aws-network/load_balancers"
-  availability_zones = var.availability_zones
-  elb_listeners      = var.elb_listeners
+module "lb" {
+  source = "../terraform-aws-network/load_balancers"
+
+  vpc_id              = aws_vpc.vpc_main.id
+  instances_id        = [for ec2 in module.instances : ec2.tg_instance_id]
+  subnet_ids          = [for network in module.networking : network.tg_subnet_id]
+  security_groups_ids = [for network in module.networking : network.tg_security_group_id]
 }

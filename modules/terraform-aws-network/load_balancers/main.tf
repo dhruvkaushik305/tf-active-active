@@ -1,24 +1,38 @@
-resource "aws_elb" "elb" {
-  availability_zones = var.availability_zones
+resource "aws_lb" "alb" {
+  name               = "alb"
+  internal           = true
+  load_balancer_type = "application"
+  security_groups    = var.security_groups_ids
+  subnets            = var.subnet_ids
+}
 
-  dynamic "listener" {
-    for_each = {
-      for idx, rule in var.elb_listeners : "${rule.instance_port}-${rule.instance_protocol}-${rule.lb_port}-${rule.lb_protocol}" => rule
-    }
+resource "aws_alb_target_group" "target_group" {
+  name     = "target-group"
+  port     = 80
+  protocol = "HTTP"
+  vpc_id   = var.vpc_id
+}
 
-    content {
-      instance_port     = listener.value.instance_port
-      instance_protocol = listener.value.instance_protocol
-      lb_port           = listener.value.lb_port
-      lb_protocol       = listener.value.lb_protocol
-    }
+
+resource "aws_lb_listener" "alb_listener" {
+  load_balancer_arn = aws_lb.alb.arn
+  port              = "80"
+  protocol          = "HTTP"
+
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_alb_target_group.target_group.arn
+  }
+}
+
+resource "aws_lb_target_group_attachment" "target_group_attachment" {
+  # target_group_arn = aws_alb_target_group.target_group.arn
+  # target_id        = var.instances_id
+  for_each = {
+    for k, v in var.instances_id : k => v
   }
 
-  health_check {
-    healthy_threshold   = 2
-    unhealthy_threshold = 2
-    timeout             = 3
-    target              = "HTTP:8000/"
-    interval            = 30
-  }
+  target_group_arn = aws_alb_target_group.target_group.arn
+  target_id        = each.value
+  port             = 80
 }
