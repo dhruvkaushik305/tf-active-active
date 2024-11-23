@@ -53,6 +53,7 @@ module "instances" {
   network_interface_ids = module.networking[count.index].net_ids
   ami_id                = var.ami_id
   key_name              = var.key_name
+  allocation_id         = module.networking[count.index].allocation_id
 }
 
 module "lb" {
@@ -63,20 +64,3 @@ module "lb" {
   subnet_ids        = [for network in module.networking : network.tg_subnet_id]
   security_group_id = module.security_groups.tg_security_group_id
 }
-
-# resource "aws_route_table" "subnet_rt" {
-#   vpc_id = var.vpc_id
-
-#   route {
-#     cidr_block           = var.subnets_cidr["public"].cidr_block
-#     network_interface_id = module.network_interfaces.net_ids["web"]
-#   }
-#   route {
-#     cidr_block           = var.subnets_cidr["public"].cidr_block
-#     network_interface_id = module.network_interfaces.net_ids["app"]
-#   }
-#   route {
-#     gateway_id     = var.igw_id
-#     nat_gateway_id = module.nat_gateway.nat_gateway_id
-#   }
-# }

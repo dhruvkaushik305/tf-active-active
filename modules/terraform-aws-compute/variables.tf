@@ -13,3 +13,7 @@ variable "ami_id" {
 variable "key_name" {
   type = string
 }
+
+variable "allocation_id" {
+  type = string
+}
