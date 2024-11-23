@@ -1,6 +1,7 @@
 module "region1" {
   source = "./modules/terraform-aws-region"
 
+  sg_names           = var.sg_names
   vpc_cidr_block     = var.region1_cidr
   sg_rules_ingress   = var.region1_sg_rules_ingress
   sg_rules_egress    = var.region1_sg_rules_egress
@@ -12,6 +13,7 @@ module "region1" {
 module "region2" {
   source = "./modules/terraform-aws-region"
 
+  sg_names           = var.sg_names
   providers          = { aws = aws.hyderabad }
   vpc_cidr_block     = var.region2_cidr
   sg_rules_ingress   = var.region2_sg_rules_ingress

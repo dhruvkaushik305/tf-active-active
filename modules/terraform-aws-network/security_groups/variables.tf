@@ -2,10 +2,9 @@ variable "vpc_id" {
   type = string
 }
 
-variable "subnet_ids" {
+variable "sg_names" {
   type = map(string)
 }
-
 variable "sg_rules_ingress" {
   type = map(list(object({
     from_port = number

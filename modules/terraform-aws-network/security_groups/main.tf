@@ -1,7 +1,7 @@
 resource "aws_security_group" "sg" {
-  for_each = var.subnet_ids
+  for_each = var.sg_names
 
-  name   = "${each.key}-sg"
+  name   = "${each.value}-sg"
   vpc_id = var.vpc_id
 }
 

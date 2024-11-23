@@ -20,17 +20,21 @@ variable "ami_id" {
 }
 
 variable "sg_rules_ingress" {
-  type = list(map(list(object({
+  type = map(list(object({
     from_port = number
     to_port   = number
     cidr_ipv4 = string
-  }))))
+  })))
 }
 
 variable "sg_rules_egress" {
-  type = list(map(list(object({
+  type = map(list(object({
     from_port = number
     to_port   = number
     cidr_ipv4 = string
-  }))))
+  })))
+}
+
+variable "sg_names" {
+  type = map(string)
 }

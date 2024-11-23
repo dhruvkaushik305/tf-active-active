@@ -2,7 +2,7 @@ resource "aws_lb" "alb" {
   name               = "alb"
   internal           = true
   load_balancer_type = "application"
-  security_groups    = var.security_groups_ids
+  security_groups    = [var.security_group_id]
   subnets            = var.subnet_ids
 }
 
@@ -26,8 +26,6 @@ resource "aws_lb_listener" "alb_listener" {
 }
 
 resource "aws_lb_target_group_attachment" "target_group_attachment" {
-  # target_group_arn = aws_alb_target_group.target_group.arn
-  # target_id        = var.instances_id
   for_each = {
     for k, v in var.instances_id : k => v
   }
