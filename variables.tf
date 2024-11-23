@@ -70,3 +70,6 @@ variable "region2_sg_rules_egress" {
   })))
 }
 
+variable "key_names" {
+  type = list(string)
+}

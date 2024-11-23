@@ -52,6 +52,7 @@ module "instances" {
   availability_zone     = var.availability_zones[count.index]
   network_interface_ids = module.networking[count.index].net_ids
   ami_id                = var.ami_id
+  key_name              = var.key_name
 }
 
 module "lb" {

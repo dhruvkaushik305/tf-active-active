@@ -8,6 +8,7 @@ module "region1" {
   subnets_cidr       = var.region1_subnets_cidr
   availability_zones = var.region1_availability_zones
   ami_id             = var.region1_ami_id
+  key_name           = var.key_names[0]
 }
 
 module "region2" {
@@ -21,6 +22,7 @@ module "region2" {
   subnets_cidr       = var.region2_subnets_cidr
   availability_zones = var.region2_availability_zones
   ami_id             = var.region2_ami_id
+  key_name           = var.key_names[1]
 }
 
 resource "aws_route53_zone" "main" {

@@ -9,3 +9,7 @@ variable "network_interface_ids" {
 variable "ami_id" {
   type = string
 }
+
+variable "key_name" {
+  type = string
+}

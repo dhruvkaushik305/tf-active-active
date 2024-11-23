@@ -38,3 +38,7 @@ variable "sg_rules_egress" {
 variable "sg_names" {
   type = map(string)
 }
+
+variable "key_name" {
+  type = string
+}
