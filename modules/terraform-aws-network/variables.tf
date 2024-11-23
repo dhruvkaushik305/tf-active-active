@@ -3,10 +3,6 @@ variable "vpc_id" {
   description = "Defines the vpc id where in the subnets are to be created"
 }
 
-variable "igw_id" {
-  type = string
-}
-
 variable "subnets_cidr" {
   type = map(object({
     cidr_block = string
@@ -21,4 +17,8 @@ variable "availability_zone" {
 
 variable "sg_ids" {
   type = map(string)
+}
+
+variable "route_table_id" {
+  type = string
 }

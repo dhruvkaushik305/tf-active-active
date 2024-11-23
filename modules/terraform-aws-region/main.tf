@@ -16,6 +16,14 @@ module "internet_gateway" {
   vpc_id = aws_vpc.vpc_main.id
 }
 
+resource "aws_route_table" "region_rt" {
+  vpc_id = aws_vpc.vpc_main.id
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = module.internet_gateway.gateway_id
+  }
+}
+
 module "security_groups" {
   source           = "../terraform-aws-network/security_groups"
   sg_names         = var.sg_names
@@ -29,20 +37,13 @@ module "networking" {
 
   count = length(var.availability_zones)
 
-  igw_id            = module.internet_gateway.gateway_id
+  route_table_id    = aws_route_table.region_rt.id
   vpc_id            = aws_vpc.vpc_main.id
   subnets_cidr      = var.subnets_cidr[count.index]
   availability_zone = var.availability_zones[count.index]
   sg_ids            = module.security_groups.sg_ids
 }
 
-resource "aws_route_table" "region_rt" {
-  vpc_id = aws_vpc.vpc_main.id
-  route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = module.internet_gateway.gateway_id
-  }
-}
 module "instances" {
   source = "../terraform-aws-compute"
 
@@ -61,3 +62,20 @@ module "lb" {
   subnet_ids        = [for network in module.networking : network.tg_subnet_id]
   security_group_id = module.security_groups.tg_security_group_id
 }
+
+# resource "aws_route_table" "subnet_rt" {
+#   vpc_id = var.vpc_id
+
+#   route {
+#     cidr_block           = var.subnets_cidr["public"].cidr_block
+#     network_interface_id = module.network_interfaces.net_ids["web"]
+#   }
+#   route {
+#     cidr_block           = var.subnets_cidr["public"].cidr_block
+#     network_interface_id = module.network_interfaces.net_ids["app"]
+#   }
+#   route {
+#     gateway_id     = var.igw_id
+#     nat_gateway_id = module.nat_gateway.nat_gateway_id
+#   }
+# }
