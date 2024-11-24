@@ -15,6 +15,14 @@ resource "aws_instance" "instances" {
     volume_size = 8
   }
 
+  user_data = <<-EOF
+  #!/bin/bash
+  sudo apt update -y
+  sudo apt install -y nginx
+  sudo systemctl start nginx
+  sudo systemctl enable nginx
+  EOF
+
   tags = {
     name = each.key
   }
