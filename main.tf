@@ -35,7 +35,7 @@ resource "aws_route53_record" "region1_route53_record" {
 
   alias {
     name                   = module.region1.lb_dns_name
-    zone_id                = module.region1.lb_zone_id # You'll need this from your load balancer
+    zone_id                = module.region1.lb_zone_id
     evaluate_target_health = true
   }
 
@@ -52,7 +52,7 @@ resource "aws_route53_record" "region2_route53_record" {
 
   alias {
     name                   = module.region2.lb_dns_name
-    zone_id                = module.region2.lb_zone_id # You'll need this from your load balancer
+    zone_id                = module.region2.lb_zone_id
     evaluate_target_health = true
   }
 

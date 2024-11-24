@@ -1,5 +1,7 @@
 region1_cidr = "10.0.0.0/22"
+
 region2_cidr = "10.0.4.0/22"
+
 region1_subnets_cidr = [{
   "public" = {
     cidr_block = "10.0.0.0/28"
@@ -23,6 +25,7 @@ region1_subnets_cidr = [{
     }
   }
 ]
+
 region2_subnets_cidr = [{
   "public" = {
     cidr_block = "10.0.4.0/28"
@@ -46,12 +49,18 @@ region2_subnets_cidr = [{
     }
   }
 ]
+
+sg_names = { "public" : "public", "web" : "web", "app" : "app" }
+
 region1_availability_zones = ["ap-south-1a", "ap-south-1b"]
+
 region2_availability_zones = ["ap-south-2a", "ap-south-2b"]
-region1_ami_id             = "ami-03c68e52484d7488f"
-region2_ami_id             = "ami-06359f00bd7e956e8"
 
-region1_sg_rules_ingress = [{
+region1_ami_id = "ami-03c68e52484d7488f"
+
+region2_ami_id = "ami-06359f00bd7e956e8"
+
+region1_sg_rules_ingress = {
   "public" : [{
     from_port = 22
     to_port   = 22
@@ -60,7 +69,7 @@ region1_sg_rules_ingress = [{
   "web" : [{
     from_port = 22
     to_port   = 22
-    cidr_ipv4 = "10.0.0.0/28"
+    cidr_ipv4 = "10.0.0.0/22"
     }, {
     from_port = 80
     to_port   = 80
@@ -69,83 +78,15 @@ region1_sg_rules_ingress = [{
   "app" : [{
     from_port = 22
     to_port   = 22
-    cidr_ipv4 = "10.0.0.0/28"
+    cidr_ipv4 = "10.0.0.0/22"
     }, {
     from_port = 80
     to_port   = 80
     cidr_ipv4 = "0.0.0.0/0"
   }]
-  },
-  {
-    "public" : [{
-      from_port = 22
-      to_port   = 22
-      cidr_ipv4 = "0.0.0.0/0"
-    }],
-    "web" : [{
-      from_port = 22
-      to_port   = 22
-      cidr_ipv4 = "10.0.0.48/28"
-      }, {
-      from_port = 80
-      to_port   = 80
-      cidr_ipv4 = "0.0.0.0/0"
-    }],
-    "app" : [{
-      from_port = 22
-      to_port   = 22
-      cidr_ipv4 = "10.0.0.48/28"
-      }, {
-      from_port = 80
-      to_port   = 80
-      cidr_ipv4 = "0.0.0.0/0"
-    }]
-  }
-]
+}
 
-region1_sg_rules_egress = [{
-  "public" : [{
-    from_port = 0
-    to_port   = 0
-    protocol  = "-1"
-    cidr_ipv4 = "0.0.0.0/0"
-  }],
-  "web" : [{
-    from_port = 0
-    to_port   = 0
-    protocol  = "-1"
-    cidr_ipv4 = "0.0.0.0/0"
-  }],
-  "app" : [{
-    from_port = 0
-    to_port   = 0
-    protocol  = "-1"
-    cidr_ipv4 = "0.0.0.0/0"
-  }]
-  },
-  {
-    "public" : [{
-      from_port = 0
-      to_port   = 0
-      protocol  = "-1"
-      cidr_ipv4 = "0.0.0.0/0"
-    }],
-    "web" : [{
-      from_port = 0
-      to_port   = 0
-      protocol  = "-1"
-      cidr_ipv4 = "0.0.0.0/0"
-    }],
-    "app" : [{
-      from_port = 0
-      to_port   = 0
-      protocol  = "-1"
-      cidr_ipv4 = "0.0.0.0/0"
-    }]
-  }
-]
-
-region2_sg_rules_ingress = [{
+region2_sg_rules_ingress = {
   "public" : [{
     from_port = 22
     to_port   = 22
@@ -154,7 +95,7 @@ region2_sg_rules_ingress = [{
   "web" : [{
     from_port = 22
     to_port   = 22
-    cidr_ipv4 = "10.0.4.0/28"
+    cidr_ipv4 = "10.0.4.0/22"
     }, {
     from_port = 80
     to_port   = 80
@@ -163,78 +104,12 @@ region2_sg_rules_ingress = [{
   "app" : [{
     from_port = 22
     to_port   = 22
-    cidr_ipv4 = "10.0.0.0/28"
+    cidr_ipv4 = "10.0.0.0/22"
     }, {
     from_port = 80
     to_port   = 80
     cidr_ipv4 = "0.0.0.0/0"
   }]
-  },
-  {
-    "public" : [{
-      from_port = 22
-      to_port   = 22
-      cidr_ipv4 = "0.0.0.0/0"
-    }],
-    "web" : [{
-      from_port = 22
-      to_port   = 22
-      cidr_ipv4 = "10.0.4.48/28"
-      }, {
-      from_port = 80
-      to_port   = 80
-      cidr_ipv4 = "0.0.0.0/0"
-    }],
-    "app" : [{
-      from_port = 22
-      to_port   = 22
-      cidr_ipv4 = "10.0.0.48/28"
-      }, {
-      from_port = 80
-      to_port   = 80
-      cidr_ipv4 = "0.0.0.0/0"
-    }]
-  }
-]
+}
 
-region2_sg_rules_egress = [{
-  "public" : [{
-    from_port = 0
-    to_port   = 0
-    protocol  = "-1"
-    cidr_ipv4 = "0.0.0.0/0"
-  }],
-  "web" : [{
-    from_port = 0
-    to_port   = 0
-    protocol  = "-1"
-    cidr_ipv4 = "0.0.0.0/0"
-  }],
-  "app" : [{
-    from_port = 0
-    to_port   = 0
-    protocol  = "-1"
-    cidr_ipv4 = "0.0.0.0/0"
-  }]
-  },
-  {
-    "public" : [{
-      from_port = 0
-      to_port   = 0
-      protocol  = "-1"
-      cidr_ipv4 = "0.0.0.0/0"
-    }],
-    "web" : [{
-      from_port = 0
-      to_port   = 0
-      protocol  = "-1"
-      cidr_ipv4 = "0.0.0.0/0"
-    }],
-    "app" : [{
-      from_port = 0
-      to_port   = 0
-      protocol  = "-1"
-      cidr_ipv4 = "0.0.0.0/0"
-    }]
-  }
-]
+key_names = ["region1", "region2"]
