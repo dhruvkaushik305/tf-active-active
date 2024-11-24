@@ -25,35 +25,6 @@ module "region2" {
   key_name           = var.key_names[1]
 }
 
-# resource "aws_route53_zone" "main" {
-#   name = "dhruvkaushik.xyz"
-# }
-
-# resource "aws_route53_record" "region1_route53_record" {
-#   type           = "CNAME"
-#   zone_id        = aws_route53_zone.main.id
-#   name           = "dhruvkaushik.xyz"
-#   ttl            = 300
-#   records        = [module.region1.lb_dns_name]
-#   set_identifier = "region1"
-#   weighted_routing_policy {
-#     weight = 50
-#   }
-# }
-
-# resource "aws_route53_record" "region2_route53_record" {
-#   type           = "CNAME"
-#   zone_id        = aws_route53_zone.main.id
-#   name           = "dhruvkaushik.xyz"
-#   ttl            = 300
-#   records        = [module.region2.lb_dns_name]
-#   set_identifier = "region2"
-#   weighted_routing_policy {
-#     weight = 50
-#   }
-# }
-
-
 resource "aws_route53_zone" "main" {
   name = "dhruvkaushik.xyz"
 }

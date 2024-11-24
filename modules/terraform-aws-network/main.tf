@@ -5,12 +5,6 @@ module "subnets" {
   subnets_cidr      = var.subnets_cidr
 }
 
-module "network_interfaces" {
-  source     = "./network_interface"
-  subnet_ids = module.subnets.subnet_ids
-  sg_ids     = var.sg_ids
-}
-
 module "nat_gateway" {
   source    = "./nat_gateways"
   subnet_id = module.subnets.subnet_ids["public"]

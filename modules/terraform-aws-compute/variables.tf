@@ -2,7 +2,7 @@ variable "availability_zone" {
   type = string
 }
 
-variable "network_interface_ids" {
+variable "security_group_ids" {
   type = map(string)
 }
 
@@ -14,6 +14,6 @@ variable "key_name" {
   type = string
 }
 
-variable "allocation_id" {
-  type = string
+variable "subnet_ids" {
+  type = map(string)
 }

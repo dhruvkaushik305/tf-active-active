@@ -35,8 +35,7 @@ module "security_groups" {
 module "networking" {
   source = "../terraform-aws-network"
 
-  count = length(var.availability_zones)
-
+  count             = length(var.availability_zones)
   route_table_id    = aws_route_table.region_rt.id
   vpc_id            = aws_vpc.vpc_main.id
   subnets_cidr      = var.subnets_cidr[count.index]
@@ -47,13 +46,12 @@ module "networking" {
 module "instances" {
   source = "../terraform-aws-compute"
 
-  count = length(var.availability_zones)
-
-  availability_zone     = var.availability_zones[count.index]
-  network_interface_ids = module.networking[count.index].net_ids
-  ami_id                = var.ami_id
-  key_name              = var.key_name
-  allocation_id         = module.networking[count.index].allocation_id
+  count              = length(var.availability_zones)
+  security_group_ids = module.security_groups.sg_ids
+  availability_zone  = var.availability_zones[count.index]
+  ami_id             = var.ami_id
+  subnet_ids         = module.networking[count.index].subnet_ids
+  key_name           = var.key_name
 }
 
 module "lb" {
