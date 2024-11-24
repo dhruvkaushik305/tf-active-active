@@ -1,5 +1,5 @@
 ### The following is the sketch of the infra that this repo is about
-![image](https://github.com/user-attachments/assets/f0f7c90b-a66c-4cf7-a93e-59729d1bb69f)
+![image](https://github.com/user-attachments/assets/9f7e769b-9f9b-4206-b4a5-08964cfb4536)
 
 > In case you want to follow along, make sure to configure a few things
 > - You have terraform installed
