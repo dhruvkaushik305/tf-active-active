@@ -4,7 +4,6 @@ module "region1" {
   sg_names           = var.sg_names
   vpc_cidr_block     = var.region1_cidr
   sg_rules_ingress   = var.region1_sg_rules_ingress
-  sg_rules_egress    = var.region1_sg_rules_egress
   subnets_cidr       = var.region1_subnets_cidr
   availability_zones = var.region1_availability_zones
   ami_id             = var.region1_ami_id
@@ -18,7 +17,6 @@ module "region2" {
   providers          = { aws = aws.hyderabad }
   vpc_cidr_block     = var.region2_cidr
   sg_rules_ingress   = var.region2_sg_rules_ingress
-  sg_rules_egress    = var.region2_sg_rules_egress
   subnets_cidr       = var.region2_subnets_cidr
   availability_zones = var.region2_availability_zones
   ami_id             = var.region2_ami_id

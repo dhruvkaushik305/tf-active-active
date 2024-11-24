@@ -12,11 +12,3 @@ variable "sg_rules_ingress" {
     cidr_ipv4 = string
   })))
 }
-
-variable "sg_rules_egress" {
-  type = map(list(object({
-    from_port = number
-    to_port   = number
-    cidr_ipv4 = string
-  })))
-}
